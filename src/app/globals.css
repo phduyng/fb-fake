@@ -2,26 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 100%;
+    --background-2: 216 20% 95%;
+    --background-3: 233 15% 91%;
+    --background-search: 216 20% 95%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --icon: 220 9% 13%;
+    --line: 220 7% 82%;
+
+    --primary-text: 0 0% 2%;
+    --secondary-text: 220 3% 41%;
+    --tertiary-text: 0 0% 2%;
+
+    --radio-checked: 212 100% 41%;
+
+    --thumd-sidebar: 0 0% 32%;
+
+    --hover-menu: 0 0% 95%;
+    --hover-nav-right: 0 0% 84%;
+
+    --hover-1: 0 0% 92%;
+    --shadow-menu: 0 0 0 / 0.1;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 217 100% 52%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.5rem;
+
+    --f1: invert(41%) sepia(8%) saturate(203%) hue-rotate(181deg) brightness(94%) contrast(92%);
+  }
+ 
+  .dark {
+    --background: 210 3% 15%;
+    --background-2: 210 4% 10%;
+    --background-3: 210 2% 23%;
+    --background-search: 210 2% 23%;
+    --foreground: 210 40% 98%;
+
+    --icon: 220 12% 91%;
+    --line: 210 3% 25%;
+    
+    --primary-text: 223 10% 86%;
+    --secondary-text: 218 5% 71%;
+    --tertiary-text: 223 15% 91%;
+
+    --radio-checked: 212 100% 73%;
+
+    --thumd-sidebar: 0 0% 40%;
+
+    --hover-menu: 0 0% 20%;
+    --hover-nav-right: 0 0% 32%;
+
+    --hover-1: 0 0% 30%;
+    --shadow-menu: 255 255 255 / 0.1;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 217 100% 52%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --f1: invert(73%) sepia(6%) saturate(171%) hue-rotate(174deg) brightness(93%) contrast(89%);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer utilities {
+  .flex-between {
+    @apply flex justify-between items-center
+  }
+  .flex-start {
+    @apply flex justify-start items-center
+  }
+  .flex-center {
+    @apply flex justify-center items-center
+  }
+  .flex-end {
+    @apply flex justify-end items-center
+  }
+  .nav-active {
+  @apply shadow-active text-primary
+  }
+  .bg-hover-xl {
+    @apply bg-hover-menu rounded-xl
+  }
+  .bg-hover-full {
+    @apply bg-hover-menu rounded-full
+  }
+  .nav-right-hover {
+    @apply bg-hover-nav-right
+  }
+}
+
+@layer components {
+  .menu-square {
+    @apply flex-center text-secondary-text cursor-pointer select-none max-w-[108px] w-full h-full mt-[1px]
+  }
+  .search-lg {
+    @apply w-60 h-10 text-secondary-text text-sm rounded-full bg-background-search flex-start p-3 space-x-2
+  }
+  .search-sm {
+    @apply h-10 w-10 bg-background-search text-secondary-text rounded-full flex-center
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
