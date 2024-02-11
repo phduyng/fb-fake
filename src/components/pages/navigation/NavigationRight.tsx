@@ -4,7 +4,7 @@ import Messenger from "../../shared/svgs/Messenger";
 import NineCircle from "../../shared/svgs/NineCircle";
 import { Avatar, AvatarFallback, AvatarImage } from "../../shared/ui/avatar";
 import Plus from "../../shared/svgs/Plus";
-import NavRightAvt from "../../modals/navigation/account/AccountModal";
+import Account from "../../modals/navigation/account/AccountModal";
 
 interface NavigationRightProps {
   className?: string;
@@ -26,7 +26,7 @@ const NavigationRight: React.FC<NavigationRightProps> = ({ className }) => {
       <Avatar className="flex-center hover:nav-right-hover bg-background-3">
         <Bell />
       </Avatar>
-      <NavRightAvt />
+      <Account />
     </div>
   );
 };

@@ -3,7 +3,17 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
-import Navigation from "@/components/pages/navigation/Navigation";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import QueryProvider from "@/components/providers/QueryProvider";
+import { ModalProvider } from "@/components/providers/ModalProvider";
+import AuthProvider from "@/components/providers/AuthProvider";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
+import localFont from "next/font/local";
+
+const myFont = localFont({
+  src: "../fonts/segoe-ui-historic.ttf",
+});
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -19,16 +29,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(font.className, "bg-background-2")}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navigation />
-          {children}
-        </ThemeProvider>
+      <body className={cn(myFont.className, "bg-background-2")}>
+        <QueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AuthProvider>
+              <ModalProvider />
+              <NextSSRPlugin
+                /**
+                 * The `extractRouterConfig` will extract **only** the route configs
+                 * from the router to prevent additional information from being
+                 * leaked to the client. The data passed to the client is the same
+                 * as if you were to fetch `/api/uploadthing` directly.
+                 */
+                routerConfig={extractRouterConfig(ourFileRouter)}
+              />
+              {children}
+            </AuthProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import Like from "@/components/shared/icons/Like";
 import Share from "@/components/shared/icons/Share";
 import Comment from "@/components/shared/icons/Comment";
@@ -12,8 +14,31 @@ import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
-const ImagePost = () => {
+interface ImagePostProps {
+  cap?: string;
+  image?: string;
+  postId?: string;
+}
+
+const ImagePost: React.FC<ImagePostProps> = ({ cap, image, postId }) => {
+  const router = useRouter();
+
+  const { mutate: deletePost } = useMutation({
+    mutationFn: async () => {
+      return axios.delete(`/api/posts/${postId}`);
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
+
   return (
     <div className="w-[590px]  rounded-lg bg-background shadow">
       {/* ====================================== Detail ================================================== */}
@@ -37,13 +62,16 @@ const ImagePost = () => {
           <div className="flex-center h-9 w-9 rounded-full text-secondary-text hover:bg-background-3">
             <BsThreeDots size={22} />
           </div>
-          <div className="flex-center h-9 w-9 rounded-full text-secondary-text hover:bg-background-3">
+          <div
+            onClick={() => deletePost()}
+            className="flex-center h-9 w-9 rounded-full text-secondary-text hover:bg-background-3"
+          >
             <MdOutlineClose size={28} />
           </div>
         </div>
       </div>
       <div className="w-full px-4 pb-3 text-[15px] font-normal text-tertiary-text">
-        Hi 🙂
+        {cap}
       </div>
       {/* ========================================= Image =========================================== */}
       <Image
@@ -52,7 +80,7 @@ const ImagePost = () => {
         width={1000}
         quality={100}
         alt="Japan"
-        src="/images/jp.jpg"
+        src={image || ""}
       />
       <div className="flex-center w-full flex-col">
         <div className="flex-between w-full px-4 py-2 text-[15px] font-normal text-secondary-text">

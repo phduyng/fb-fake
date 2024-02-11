@@ -3,10 +3,14 @@ import Search from "../../shared/svgs/Search";
 import { BsThreeDots } from "react-icons/bs";
 import { TriggerModalCustom } from "../../shared/TriggerModalCustom";
 import { Avatar, AvatarImage } from "../../shared/ui/avatar";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
-const HomeRight = () => {
+const HomeRight = async () => {
+  const session = await getServerSession(options);
+
   return (
-    <div className="flex h-[500px] w-[360px] flex-col px-1 pt-4">
+    <div className="flex w-full flex-col px-1 pt-4">
       <div className="flex-between w-full">
         <span className="text-[17px] font-semibold text-secondary-text">
           Contacts
@@ -30,41 +34,7 @@ const HomeRight = () => {
               <AvatarImage
                 height={36}
                 width={36}
-                src="/images/duck.jpg"
-                alt="Duck"
-              />
-            </Avatar>
-            <span className="absolute bottom-[2px] right-[2px] h-2 w-2 rounded-full bg-green-600 outline outline-[2px] outline-black"></span>
-          </div>
-        }
-      />
-      <TriggerModalCustom
-        className="mx-0 w-auto"
-        name="Phuong Duy"
-        icon={
-          <div className="relative">
-            <Avatar>
-              <AvatarImage
-                height={36}
-                width={36}
-                src="/images/duck.jpg"
-                alt="Duck"
-              />
-            </Avatar>
-            <span className="absolute bottom-[2px] right-[2px] h-2 w-2 rounded-full bg-green-600 outline outline-[2px] outline-black"></span>
-          </div>
-        }
-      />
-      <TriggerModalCustom
-        className="mx-0 w-auto"
-        name="Phuong Duy"
-        icon={
-          <div className="relative">
-            <Avatar>
-              <AvatarImage
-                height={36}
-                width={36}
-                src="/images/duck.jpg"
+                src={session?.user?.image || ""}
                 alt="Duck"
               />
             </Avatar>

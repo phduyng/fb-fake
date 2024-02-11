@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+
+import { withUt } from "uploadthing/tw";
+
+module.exports = withUt({
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -34,10 +37,22 @@ module.exports = {
         'hover-1': "hsl(var(--hover-1))",
         'line': "hsl(var(--line))",
         'icon': "hsl(var(--icon))",
+        bg: {
+          primary: "hsl(var(--bg-1))",
+          secondary: "hsl(var(--bg-2))",
+          tertiary: "hsl(var(--bg-3))",
+        },
+        text: {
+          primary: "hsl(var(--text-1))",
+          secondary: "hsl(var(--text-2))",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          light: "hsl(var(--primary-light))",
+          superlight: "hsl(var(--primary-superlight))",
+          hyperlight: "hsl(var(--primary-hyperlight))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -85,19 +100,24 @@ module.exports = {
       },
       screens: {
         '700': '700px',
+        '900': '900px',
         '1100': '1100px',
+        '1300': '1300px',
         '1260': '1260px',
       },
       boxShadow: {
         'menubar': '0 4px 6px -1px rgb(var(--shadow-menu)), 0 2px 4px -2px rgb(var(--shadow-menu))',
         'menubar2': '0 1px 2px -1px rgb(var(--shadow-menu)), 0 1px 2px -2px rgb(var(--shadow-menu))',
         'active': '0px 3px 0px 0px hsl(217 100% 52%)',
-        'account-homepage': '0px 2px 12px 1px rgba(0, 0, 0, 0.2)'
+        'account-homepage': '0px 2px 12px 1px rgba(0, 0, 0, 0.2)',
+        'form': '0px 2px 4px 1px rgba(0, 0, 0, 0.2)',
+        "card-friend" : 'var(--shadow-card-friend)',
+        "main-nav": 'var(--shadow-main-nav)',
       },
       gridTemplateColumns: {
-        'home': '360px 1fr 360px'
+        'home': '1fr 792.8px 1fr'
       }
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [require("tailwindcss-animate"),  require('tailwind-scrollbar-hide')],
+})

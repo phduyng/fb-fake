@@ -4,7 +4,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogTrigger } from "./ui/dialog";
 import { RxCaretRight } from "react-icons/rx";
 
 const triggerModalCustomVariants = cva(
@@ -39,6 +39,7 @@ export interface ButtonProps
   icon: React.ReactNode;
   name: string;
   caret?: boolean;
+  modal?: boolean;
 }
 
 const TriggerModalCustom = React.forwardRef<HTMLDivElement, ButtonProps>(
@@ -53,6 +54,7 @@ const TriggerModalCustom = React.forwardRef<HTMLDivElement, ButtonProps>(
       icon,
       name,
       caret = false,
+      modal = false,
       ...props
     },
     ref,
@@ -64,7 +66,7 @@ const TriggerModalCustom = React.forwardRef<HTMLDivElement, ButtonProps>(
       //   ref={ref}
       //   {...props}
       // />
-      <Dialog modal={false}>
+      <Dialog modal={modal}>
         <DialogTrigger>
           <div
             className={cn(
