@@ -83,8 +83,9 @@ const Account = async () => {
             </Link>
           </div>
           <footer className="mx-4 w-auto text-[13px] font-normal text-secondary-text">
-            Privacy · Terms · Advertising · Ad choices {<AdLogo />} · Cookies ·
-            More · Meta © 2023
+            Privacy · Terms · Advertising · Ad choices{" "}
+            {<AdLogo className="translate-y-[2px]" />} · Cookies · More · Meta
+            © 2024
           </footer>
         </DialogContent>
       </DialogPortal>

@@ -1,7 +1,21 @@
-const page = () => {
+import Image from "next/image";
+import GetUser from "./_components/GetUser";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+
+const page = async () => {
+  const session = await getServerSession(options);
+
   return (
-    <div className="flex-center absolute top-14 h-screen w-screen bg-bg-primary">
-      <div className="shadow-card-friend h-40 w-40 rounded-lg bg-bg-primary"></div>
+    <div className="absolute top-14  w-full  bg-sky-500">
+      <div className="relative h-[500px] w-[300px] ">
+        <Image
+          fill={true}
+          objectFit="cover"
+          src={session?.user?.image || ""}
+          alt="avt"
+        />
+      </div>
     </div>
   );
 };

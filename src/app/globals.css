@@ -8,6 +8,10 @@ body,
   height: 100vh;
 }
 
+#slogan-signin {
+  font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+}
+
 @layer base {
   :root {
 

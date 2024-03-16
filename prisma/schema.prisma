@@ -42,6 +42,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  post          Post[]
 }
 
 model VerificationToken {
@@ -53,7 +54,9 @@ model VerificationToken {
 }
 
 model Post {
-  postId   String @id @default(uuid())
+  postId   String  @id @default(uuid())
   caption  String
   imageUrl String
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String?
 }

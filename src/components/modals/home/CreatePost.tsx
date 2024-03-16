@@ -1,6 +1,5 @@
 "use client";
 
-import InputImg from "@/components/shared/ImputImg";
 import CardPlus from "@/components/shared/icons/CardPlus";
 import Phone from "@/components/shared/icons/Phone";
 import Smile from "@/components/shared/icons/Smile";

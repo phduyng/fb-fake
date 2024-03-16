@@ -14,6 +14,7 @@ export default async function Page() {
         src={session?.user?.image || ""}
         alt="avt"
       />
+
       <div className="flex-center relative h-[49px] w-full space-y-4">
         <div className="flex-center absolute top-0 h-10 w-10 translate-y-[-50%] rounded-full border-4 border-background bg-primary">
           <Plus className="text-white" height="25" width="25" />
