@@ -38,13 +38,13 @@ module.exports = withUt({
         'line': "hsl(var(--line))",
         'icon': "hsl(var(--icon))",
         bg: {
-          primary: "hsl(var(--bg-1))",
-          secondary: "hsl(var(--bg-2))",
-          tertiary: "hsl(var(--bg-3))",
+          '1': "hsl(var(--bg-1))",
+          '2': "hsl(var(--bg-2))",
+          '3': "hsl(var(--bg-3))",
         },
         text: {
-          primary: "hsl(var(--text-1))",
-          secondary: "hsl(var(--text-2))",
+          '1': "hsl(var(--text-1))",
+          '2': "hsl(var(--text-2))",
         },
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -111,7 +111,7 @@ module.exports = withUt({
         'active': '0px 3px 0px 0px hsl(217 100% 52%)',
         'account-homepage': '0px 2px 12px 1px rgba(0, 0, 0, 0.2)',
         'form': '0px 0px 4px 1px rgba(0, 0, 0, 0.2)',
-        'form-equaly': '0px 0px 3px 0.4px rgba(0, 0, 0, 0.2)',
+        'form-equaly': '0px 0px 3px 0.7px rgba(0, 0, 0, 0.2)',
         "card-friend" : 'var(--shadow-card-friend)',
         "main-nav": 'var(--shadow-main-nav)',
       },

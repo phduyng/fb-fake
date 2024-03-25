@@ -3,12 +3,8 @@ import Search from "../../shared/svgs/Search";
 import { BsThreeDots } from "react-icons/bs";
 import { TriggerModalCustom } from "../../shared/TriggerModalCustom";
 import { Avatar, AvatarImage } from "../../shared/ui/avatar";
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
 
 const HomeRight = async () => {
-  const session = await getServerSession(options);
-
   return (
     <div className="flex w-full flex-col px-1 pt-4">
       <div className="flex-between w-full">
@@ -31,12 +27,7 @@ const HomeRight = async () => {
         icon={
           <div className="relative">
             <Avatar>
-              <AvatarImage
-                height={36}
-                width={36}
-                src={session?.user?.image || ""}
-                alt="Duck"
-              />
+              <AvatarImage height={36} width={36} src={""} alt="Duck" />
             </Avatar>
             <span className="absolute bottom-[2px] right-[2px] h-2 w-2 rounded-full bg-green-600 outline outline-[2px] outline-black"></span>
           </div>

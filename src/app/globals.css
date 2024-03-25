@@ -80,7 +80,7 @@ body,
  
     --radius: 0.5rem;
 
-    --f1: invert(41%) sepia(8%) saturate(203%) hue-rotate(181deg) brightness(94%) contrast(92%);
+    --emoji-post: invert(39%) sepia(8%) saturate(200%) hue-rotate(182deg) brightness(100%) contrast(92%);;
   }
  
   .dark {
@@ -151,7 +151,7 @@ body,
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-    --f1: invert(73%) sepia(6%) saturate(171%) hue-rotate(174deg) brightness(93%) contrast(89%);
+    --emoji-post: brightness(0) saturate(100%) invert(90%) sepia(2%) saturate(559%) hue-rotate(173deg) brightness(87%) contrast(71%)
   }
 }
 

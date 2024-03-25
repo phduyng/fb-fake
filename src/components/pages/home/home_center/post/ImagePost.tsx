@@ -17,14 +17,21 @@ import { MdOutlineClose } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { getUserById } from "@/data/user";
 
 interface ImagePostProps {
+  authorId?: string;
   cap?: string;
   image?: string;
   postId?: string;
 }
 
-const ImagePost: React.FC<ImagePostProps> = ({ cap, image, postId }) => {
+const ImagePost: React.FC<ImagePostProps> = ({
+  cap,
+  image,
+  postId,
+  authorId,
+}) => {
   const router = useRouter();
 
   const { mutate: deletePost } = useMutation({

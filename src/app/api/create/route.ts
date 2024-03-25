@@ -9,6 +9,7 @@ export async function POST(req: Request) {
         
         const post = await db.post.create({
             data: {
+                email: body.email,
                 caption : body.caption,
                 imageUrl: body.previewURL,
             }

@@ -22,6 +22,7 @@ const buttonVariants = cva(
           "text-[#75B6FF] flex-center space-x-1 text-[15px] font-semibold bg-[#233950]",
         login: "bg-primary text-[20px] font-semibold",
         create: "bg-[#42B72A] text-[17px] font-semibold",
+        none: "",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -30,6 +31,7 @@ const buttonVariants = cva(
         icon: "h-10 w-10",
         login: "h-[48px] w-[364px] px-4",
         create: "h-[48px] w-[192.61px] px-4",
+        none: "",
       },
     },
     defaultVariants: {

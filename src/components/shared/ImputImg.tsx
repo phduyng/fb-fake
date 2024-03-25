@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState } from "react";
 
 type FileType = {
@@ -39,18 +38,6 @@ const InputImg = () => {
         multiple
         onChange={handleChange}
       />
-      {/* {images.map((image, index) => (
-        <>
-          <div>{image.previewURL}</div>
-          <Image
-            key={index}
-            src={image.previewURL}
-            height={200}
-            alt={`Selected Image ${index + 1}`}
-            width={200}
-          />
-        </>
-      ))} */}
     </div>
   );
 };

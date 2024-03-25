@@ -1,4 +1,3 @@
-import { ScrollArea } from "@/components/shared/ui/scroll-area";
 import { TriggerModalCustom } from "@/components/shared/TriggerModalCustom";
 import { Avatar, AvatarImage } from "@/components/shared/ui/avatar";
 import UserFriends from "@/components/shared/icons/UserFriends";
@@ -11,27 +10,12 @@ import Feeds from "@/components/shared/svgs/Feeds";
 import Calendar from "@/components/shared/icons/Calendar";
 import Love from "@/components/shared/icons/Love";
 import AdLogo from "@/components/shared/icons/AdLogo";
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
+import UserAvt from "@/components/shared/UserAvatar";
 
 export async function HomeLeft() {
-  const session = await getServerSession(options);
-
   return (
     <div className="flex flex-col ">
-      <TriggerModalCustom
-        name="Phuong Duy"
-        icon={
-          <Avatar>
-            <AvatarImage
-              height={36}
-              width={36}
-              src={session?.user?.image || ""}
-              alt="avt"
-            />
-          </Avatar>
-        }
-      />
+      <TriggerModalCustom name="Phuong Duy" icon={<UserAvt size={40} />} />
       <TriggerModalCustom name="Find friends" icon={<UserFriends />} />
       <TriggerModalCustom name="Saved" icon={<BookMark />} />
       <TriggerModalCustom name="Memories" icon={<Clock />} />

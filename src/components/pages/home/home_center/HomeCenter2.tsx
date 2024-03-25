@@ -1,33 +1,22 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import CreatePost from "@/components/modals/home/CreatePost";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/shared/ui/avatar";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/shared/ui/dialog";
+import UserAvt from "@/components/shared/UserAvatar";
 import { Separator } from "@/components/shared/ui/separator";
-import { getServerSession } from "next-auth";
+import { currentUser } from "@/lib/auth";
 import Image from "next/image";
 import Link from "next/link";
 
 const HomeCenter2 = async () => {
-  const session = await getServerSession(options);
+  const user = await currentUser();
+
+  const emailUser = await user?.email;
 
   return (
     <div className="flex h-[122.8px] w-[590px] flex-col items-center rounded-lg bg-background shadow">
       <div className="flex w-full space-x-2 px-4 py-3">
         <Link href="/profile">
-          <Avatar className="h-10 w-10 cursor-pointer">
-            <AvatarImage src={session?.user?.image || ""} alt="avt" />
-            <AvatarFallback />
-          </Avatar>
+          <UserAvt />
         </Link>
-        <CreatePost />
+        <CreatePost emailUser={emailUser || ""} />
       </div>
       <Separator className="h-[2px] w-[540px] bg-background-3" />
       <div className="flex-center w-full px-5 py-2">

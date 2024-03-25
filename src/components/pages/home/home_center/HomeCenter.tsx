@@ -1,35 +1,25 @@
-import React from "react";
 import { cn } from "@/lib/utils";
-import ImagePost from "./post/ImagePost";
 import HomeCenter1 from "./HomeCenter1";
 import HomeCenter2 from "./HomeCenter2";
-import { Post } from "@prisma/client";
-import axios from "axios";
-import db from "@/lib/db";
+import { currentUser } from "@/lib/auth";
+import { emojiUnitCount, getAllPosts } from "@/data/post";
+import ImagePost from "@/components/shared/post/ImagePost";
+import { emailExist } from "@/data/emoji";
+import { getUserByEmail } from "@/data/user";
+import { getAllComments } from "@/data/comment";
 
 interface HomeCenterProps {
   children: React.ReactNode;
   className?: string;
 }
 
-async function getPosts() {
-  const res = await db.post.findMany({
-    select: {
-      postId: true,
-      caption: true,
-      imageUrl: true,
-    },
-    // orderBy: {
-    //   createAt: "desc",
-    // },
-  });
-  return res;
-}
+const HomeCenter: React.FC<HomeCenterProps> = async ({
+  children,
+  className,
+}) => {
+  const posts = await getAllPosts();
 
-const HomeCenter: React.FC<HomeCenterProps> = async ({ children, className }) => {
-  
-
-  const posts = await getPosts();
+  const user = await currentUser();
 
   return (
     <div
@@ -41,9 +31,31 @@ const HomeCenter: React.FC<HomeCenterProps> = async ({ children, className }) =>
       <HomeCenter1>{children}</HomeCenter1>
       <HomeCenter2 />
 
-      {posts.map((item) => (
-        <ImagePost key={item.postId} postId={item.postId} cap={item.caption} image={item.imageUrl} />
-      ))}
+      {posts?.map(async (item) => {
+        const emojiCount = await emojiUnitCount(item.postId);
+
+        const userPost = await getUserByEmail(item.email);
+
+        const exist = await emailExist(user?.email ?? "");
+
+        const comments = await getAllComments(item.postId);
+
+        return (
+          <>
+            <ImagePost
+              avt={userPost?.image ?? ""}
+              author={userPost?.name ?? ""}
+              email={user?.email ?? ""}
+              emailExist={exist}
+              emojiCount={emojiCount}
+              key={item.postId}
+              postId={item.postId}
+              cap={item.caption}
+              image={item.imageUrl}
+            />
+          </>
+        );
+      })}
     </div>
   );
 };
