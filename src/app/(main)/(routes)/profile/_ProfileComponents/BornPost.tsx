@@ -1,10 +1,6 @@
-import Like from "@/components/shared/icons/Like";
-import Share from "@/components/shared/icons/Share";
 import Public from "@/components/shared/svgs/Public";
-import { Separator } from "@/components/shared/ui/separator";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
-import Comment from "@/components/shared/icons/Comment";
 import Image from "next/image";
 import UserAvatar from "@/components/shared/UserAvatar";
 
@@ -45,25 +41,6 @@ const BornPost = () => {
         <span className="text-[20px] font-normal text-text-1 ">
           Born on 10 December 2004
         </span>
-      </div>
-      {/* Like Cm */}
-      <div className="flex w-full flex-col">
-        <Separator className="h-[1.5px] w-full bg-bg-3" />
-        <div className="flex-center w-full px-4 py-1 text-text-2">
-          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-bg-3">
-            <Like />
-            <span className="text-[15px] font-semibold">Like</span>
-          </div>
-          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-bg-3">
-            <Comment />
-            <span className="text-[15px] font-semibold">Comment</span>
-          </div>
-          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-bg-3">
-            <Share />
-            <span className="text-[15px] font-semibold">Share</span>
-          </div>
-        </div>
-        <Separator className="mx-auto h-[1.5px] w-[540px] bg-bg-3 px-6" />
       </div>
     </div>
   );

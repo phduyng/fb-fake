@@ -88,7 +88,7 @@ const ImagePost: React.FC<ImagePostProps> = ({
   });
 
   const { data: dataUser } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", email],
     queryFn: async () => {
       const res = await axios.get(`/api/user/${email}`);
       return res.data;
@@ -186,7 +186,9 @@ const ImagePost: React.FC<ImagePostProps> = ({
               </>
             )}
           </div>
-          <CommentDialog email={email} postId={postId} />
+          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
+            <CommentDialog email={email} postId={postId} />
+          </div>
           <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
             <Share />
             <span className="text-[15px] font-semibold">Share</span>

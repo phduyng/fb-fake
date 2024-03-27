@@ -1,5 +1,4 @@
 import { TriggerModalCustom } from "@/components/shared/TriggerModalCustom";
-import { Avatar, AvatarImage } from "@/components/shared/ui/avatar";
 import UserFriends from "@/components/shared/icons/UserFriends";
 import BookMark from "@/components/shared/icons/BookMark";
 import Clock from "@/components/shared/icons/Clock";
@@ -10,12 +9,15 @@ import Feeds from "@/components/shared/svgs/Feeds";
 import Calendar from "@/components/shared/icons/Calendar";
 import Love from "@/components/shared/icons/Love";
 import AdLogo from "@/components/shared/icons/AdLogo";
-import UserAvt from "@/components/shared/UserAvatar";
+import UserAvatar from "@/components/shared/UserAvatar";
+import { currentUser } from "@/lib/auth";
 
 export async function HomeLeft() {
+  const user = await currentUser();
+
   return (
     <div className="flex flex-col ">
-      <TriggerModalCustom name="Phuong Duy" icon={<UserAvt size={40} />} />
+      <TriggerModalCustom name={user?.name ?? ""} icon={<UserAvatar />} />
       <TriggerModalCustom name="Find friends" icon={<UserFriends />} />
       <TriggerModalCustom name="Saved" icon={<BookMark />} />
       <TriggerModalCustom name="Memories" icon={<Clock />} />

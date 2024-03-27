@@ -1,10 +1,9 @@
-import UserAvatar from "@/components/shared/UserAvatar";
 import AddFriend from "@/components/shared/icons/AddFriend";
 import Camera from "@/components/shared/icons/Camera";
 import Camera16 from "@/components/shared/icons/Camera16";
 import HahaCreate from "@/components/shared/icons/HahaCreate";
 import { Button } from "@/components/shared/ui/button";
-import { ChevronUp, Pencil, X } from "lucide-react";
+import { ChevronUp, X } from "lucide-react";
 import { FC } from "react";
 import ProfileNav from "../_ProfileComponents/ProfileNav";
 import Intro from "../_ProfileComponents/Intro";
@@ -23,8 +22,9 @@ import {
   AvatarImage,
 } from "@/components/shared/ui/avatar";
 import { currentUser } from "@/lib/auth";
-import { FaPenToSquare } from "react-icons/fa6";
 import EditDialog from "../_ProfileComponents/EditDialog";
+import { FriendCount, getAllFriends } from "@/data/friend";
+import FlowButtonButton from "../_ProfileComponents/FollowButton";
 
 interface ProfilePageProps {
   params: {
@@ -35,11 +35,17 @@ interface ProfilePageProps {
 const ProfilePage: FC<ProfilePageProps> = async ({ params }) => {
   const user = await getUserById(params.id);
 
+  const friendCount = await FriendCount(user?.email ?? "");
+
   const userSession = await currentUser();
 
   const yourProfile = user?.email === userSession?.email;
 
   const A1 = [1, 2, 3, 4, 5, 6, 7];
+
+  const friends = await getAllFriends(user?.email ?? "");
+
+  const count = await FriendCount(user?.email ?? "");
 
   return (
     <div className="flex-center absolute top-14 w-full flex-col bg-bg-2">
@@ -70,19 +76,16 @@ const ProfilePage: FC<ProfilePageProps> = async ({ params }) => {
       {/* Second */}
       <div className="flex-between mx-8 mb-3 h-[100.99px] w-[1031px] bg-bg-2 pl-48">
         <div className="flex flex-col self-center">
-          <span className="block text-[32px] font-bold">Phuong Duy</span>
+          <span className="block text-[32px] font-bold">{user?.name}</span>
           <span className="block text-[15px] font-semibold text-text-2 ">
-            32 friends
+            {friendCount} follower
           </span>
         </div>
         <div className="flex space-x-1 self-end">
           {yourProfile ? (
             <EditDialog />
           ) : (
-            <Button className="flex-center text-text-1">
-              <AddFriend />
-              <span className="font-semibold">Add Friend</span>
-            </Button>
+            <FlowButtonButton email={userSession?.email ?? ""} id={params.id} />
           )}
           <Button className="bg-bg-3 text-white">
             <ChevronUp strokeWidth={2} size={20} />
@@ -142,7 +145,7 @@ const ProfilePage: FC<ProfilePageProps> = async ({ params }) => {
         <div className="flex flex-col items-center space-y-4 900:-translate-x-[88px] 900:items-end">
           <Intro />
           <Photo />
-          <Friends />
+          <Friends count={count} friends={friends} />
           <footer className="h-auto w-[424px] text-[13px] font-normal text-secondary-text">
             Privacy · Terms · Advertising · Ad choices{" "}
             {<AdLogo className="translate-y-[2px]" />} · Cookies · More · Meta

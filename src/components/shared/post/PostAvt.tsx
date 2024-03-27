@@ -14,7 +14,7 @@ const PostAvt = () => {
   const user = useCurrentUser();
 
   return (
-    <div className="w-[590px] rounded-lg bg-bg-2">
+    <div className="w-[590px] rounded-lg bg-bg-2 pb-3">
       {/* Avatar row 1 */}
       <div className="my-2.5 flex w-full justify-between px-4">
         <div className="flex space-x-2">
@@ -49,7 +49,7 @@ const PostAvt = () => {
         </div>
       </div>
       {/* Avatar row 3 */}
-      <div className="flex w-full flex-col">
+      {/* <div className="flex w-full flex-col">
         <Separator className="h-[1.5px] w-full bg-bg-3" />
         <div className="flex-center w-full px-4 py-1 text-text-2">
           <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-bg-3">
@@ -66,7 +66,7 @@ const PostAvt = () => {
           </div>
         </div>
         <Separator className="mx-auto h-[1.5px] w-[540px] bg-bg-3 px-6" />
-      </div>
+      </div> */}
     </div>
   );
 };

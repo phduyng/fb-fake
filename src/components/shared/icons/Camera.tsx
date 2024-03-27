@@ -15,7 +15,7 @@ const Camera = () => {
         backgroundRepeat: "no-repeat",
         display: "inline-block",
         filter:
-          "invert(97%) sepia(4%) saturate(184%) hue-rotate(181deg) brightness(93%) contrast(98%)",
+          "var(--icon-filter)",
       }}
     ></i>
   );

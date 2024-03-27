@@ -36,16 +36,17 @@ const HomeCenter: React.FC<HomeCenterProps> = async ({
 
         const userPost = await getUserByEmail(item.email);
 
-        const exist = await emailExist(user?.email ?? "");
-
-        const comments = await getAllComments(item.postId);
+        const exist = await emailExist({
+          email: user?.email ?? "",
+          postId: item?.postId,
+        });
 
         return (
           <>
             <ImagePost
               avt={userPost?.image ?? ""}
               author={userPost?.name ?? ""}
-              email={user?.email ?? ""}
+              email={userPost?.email ?? ""}
               emailExist={exist}
               emojiCount={emojiCount}
               key={item.postId}

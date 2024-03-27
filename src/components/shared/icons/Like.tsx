@@ -11,8 +11,7 @@ const Like = () => {
         height: "20px",
         backgroundRepeat: "no-repeat",
         display: "inline-block",
-        filter:
-          "brightness(0) saturate(100%) invert(90%) sepia(2%) saturate(559%) hue-rotate(173deg) brightness(87%) contrast(71%)",
+        filter: "var(--emoji-post)",
       }}
     ></i>
   );

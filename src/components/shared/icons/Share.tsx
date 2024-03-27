@@ -11,7 +11,7 @@ const Share = () => {
         height: "20px",
         backgroundRepeat: "no-repeat",
         display: "inline-block",
-        filter: "(var(--emoji-post))",
+        filter: "var(--emoji-post)",
       }}
     ></i>
   );

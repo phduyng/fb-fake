@@ -83,10 +83,8 @@ const CommentDialog: FC<CommentDialogProps> = ({ postId, email }) => {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
-            <CommentEmoji />
-            <span className="text-[15px] font-semibold">Comment</span>
-          </div>
+          <CommentEmoji />
+          <span className="text-[15px] font-semibold">Comment</span>
         </DialogTrigger>
         <DialogPortal>
           <DialogContent className="fixed left-1/2 top-1/2 z-50 h-[650px] w-[700px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg bg-bg-2 shadow-lg">

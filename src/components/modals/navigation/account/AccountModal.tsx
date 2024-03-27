@@ -4,7 +4,6 @@ import {
   DialogPortal,
   DialogTrigger,
 } from "../../../shared/ui/dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "../../../shared/ui/avatar";
 import { RiFeedbackFill, RiSettings5Fill } from "react-icons/ri";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { TbMoonFilled } from "react-icons/tb";
@@ -14,8 +13,11 @@ import { TriggerModalCustom } from "../../../shared/TriggerModalCustom";
 import AdLogo from "../../../shared/icons/AdLogo";
 import { LogoutButton } from "@/app/auth/_components/LogoutButton";
 import UserAvt from "@/components/shared/UserAvatar";
+import { currentUser } from "@/lib/auth";
 
 const Account = async () => {
+  const user = await currentUser();
+
   return (
     <Dialog modal={false}>
       <DialogTrigger>
@@ -27,7 +29,7 @@ const Account = async () => {
             <div className=" flex-start hover:bg-hover-xl m-1 h-[60px] w-auto space-x-2 p-2">
               <UserAvt className="h-10 w-10" />
               <div className="text-[15px] font-semibold text-primary-text">
-                Phuong Duy
+                {user?.name}
               </div>
             </div>
             <div className="w-[292px] self-center border border-line "></div>
