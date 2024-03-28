@@ -8,13 +8,12 @@ import axios from "axios";
 import { Friend, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { FriendWithoutId } from "@/types/type";
 
 interface FlowButtonButtonProps {
   id: string;
   email: string
 }
-
-type FriendWithoutId = Omit<Friend, "id">;
 
 const FlowButtonButton: FC<FlowButtonButtonProps> = ({ id, email }) => {
   const router = useRouter();

@@ -14,3 +14,15 @@ export type getComments = {
   createdAt: Date
   updatedAt: Date 
 }
+
+export type EmojiCreateLikeProps = {
+  postId: string
+  emoji: string
+  email: string
+}
+
+export interface FriendWithoutId {
+  email: string,
+  emailUser: string
+}
+

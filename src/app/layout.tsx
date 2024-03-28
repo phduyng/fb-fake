@@ -3,18 +3,13 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import QueryProvider from "@/components/providers/QueryProvider";
-import { ModalProvider } from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
-import { extractRouterConfig } from "uploadthing/server";
 import localFont from "next/font/local";
 
 const myFont = localFont({
   src: "../fonts/segoe-ui-historic.ttf",
 });
-
-const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,10 +31,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <AuthProvider>
-              <ModalProvider />
-              {children}
-            </AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </ThemeProvider>
         </QueryProvider>
       </body>

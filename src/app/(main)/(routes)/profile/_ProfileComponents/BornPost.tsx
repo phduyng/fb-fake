@@ -1,10 +1,15 @@
+"use client";
+
 import Public from "@/components/shared/svgs/Public";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import Image from "next/image";
 import UserAvatar from "@/components/shared/UserAvatar";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const BornPost = () => {
+  const user = useCurrentUser();
+
   return (
     <div className="w-[590px] rounded-lg bg-bg-2">
       <div className="flex-between">
@@ -12,7 +17,7 @@ const BornPost = () => {
           <UserAvatar />
           <div className="flex flex-col">
             <span className="text-[15px] font-semibold text-text-2">
-              Phuong Duy
+              {user?.name}
             </span>
             <div className="flex-start space-x-1 text-text-2">
               <span className="text-[12px] font-semibold ">11h ·</span>
@@ -29,7 +34,7 @@ const BornPost = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full -translate-y-4 flex-col items-center pb-10">
+      <div className="flex w-full -translate-y-2 flex-col items-center pb-10">
         <div className="flex-center h-11 w-11 rounded-full bg-primary outline outline-4 outline-neutral-300/20">
           <Image
             height={24}

@@ -1,7 +1,6 @@
 "use client";
 
 import Share from "@/components/shared/icons/Share";
-import Comment from "@/components/shared/icons/Comment";
 import Public from "@/components/shared/svgs/Public";
 import {
   Avatar,
@@ -9,7 +8,6 @@ import {
   AvatarImage,
 } from "@/components/shared/ui/avatar";
 import { Separator } from "@/components/shared/ui/separator";
-import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
@@ -19,13 +17,10 @@ import axios from "axios";
 import Liked from "../icons/Liked";
 import Like from "../icons/Like";
 import LikeEmoji from "../svgs/LikeEmoji";
-import {
-  EmojiUnitOnlyEmail,
-  EmojiUnitWithoutId,
-  createLike,
-} from "@/actions/post";
+import { EmojiUnitOnlyEmail } from "@/actions/post";
 import CommentDialog from "@/components/modals/post/CommentDialog";
 import Link from "next/link";
+import { EmojiCreateLikeProps } from "@/types/type";
 
 interface ImagePostProps {
   author?: string;
@@ -36,6 +31,7 @@ interface ImagePostProps {
   emojiCount?: number;
   emailExist: string;
   email: string;
+  createAt: Date;
 }
 
 const ImagePost: React.FC<ImagePostProps> = ({
@@ -47,6 +43,7 @@ const ImagePost: React.FC<ImagePostProps> = ({
   emojiCount,
   emailExist,
   email,
+  createAt,
 }) => {
   const router = useRouter();
 
@@ -64,7 +61,7 @@ const ImagePost: React.FC<ImagePostProps> = ({
   });
 
   const { mutate: createLike } = useMutation({
-    mutationFn: (newEmoji: EmojiUnitWithoutId) => {
+    mutationFn: (newEmoji: EmojiCreateLikeProps) => {
       return axios.post("/api/emoji", newEmoji);
     },
     onError: (e) => {
@@ -111,7 +108,9 @@ const ImagePost: React.FC<ImagePostProps> = ({
               {author}
             </span>
             <div className="flex-start space-x-1 text-secondary-text">
-              <span className="text-[12px] font-semibold ">11h ·</span>
+              <span className="text-[12px] font-semibold ">
+                {createAt.toLocaleDateString()} ·
+              </span>
               <Public />
             </div>
           </div>
@@ -132,14 +131,10 @@ const ImagePost: React.FC<ImagePostProps> = ({
         {cap}
       </div>
       {/* ========================================= Image =========================================== */}
-      <div className="relative h-[500px] w-full overflow-hidden">
-        <Image
-          src={image || ""}
-          alt="a post img"
-          fill={true}
-          objectFit="cover"
-        />
-      </div>
+      <Avatar className="h-[500px] w-full rounded-none">
+        <AvatarImage src={image} />
+        <AvatarFallback className="rounded-lg" />
+      </Avatar>
       <div className="flex-center w-full flex-col">
         <div className="flex-between w-full px-4 py-2 text-[15px] font-normal text-secondary-text">
           <div className="flex-center space-x-1">
@@ -152,10 +147,7 @@ const ImagePost: React.FC<ImagePostProps> = ({
               <></>
             )}
           </div>
-          <div className="flex-center space-x-4 ">
-            <div>199 comments</div>
-            <div>38 shares</div>
-          </div>
+          <div className="flex-center space-x-4 "></div>
         </div>
         <Separator className="h-[1.5px] w-[560px] bg-background-3" />
         <div className="flex-center w-full px-4 py-1 text-secondary-text">
@@ -186,9 +178,8 @@ const ImagePost: React.FC<ImagePostProps> = ({
               </>
             )}
           </div>
-          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
-            <CommentDialog email={email} postId={postId} />
-          </div>
+          <CommentDialog email={email} postId={postId} />
+
           <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
             <Share />
             <span className="text-[15px] font-semibold">Share</span>

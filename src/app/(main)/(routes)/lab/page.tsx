@@ -1,12 +1,18 @@
+"use client";
+
 import { getAllComments } from "@/data/comment";
-import { Comment, Post } from "@prisma/client";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useEffect, useState } from "react";
 
-const LabPage = async () => {
-  const postId = "clu4mcf270000a8uk6ptkenpi";
+const LabPage = () => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  const comments = await getAllComments(postId);
+  useEffect(() => {
+    const handleResize = () => setScreenWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="absolute top-14">
@@ -16,7 +22,7 @@ const LabPage = async () => {
       <span className="text-[20px] font-semibold text-text-1">Hello World</span>
       <span className="text-[20px] font-semibold text-text-2">Hello World</span>
 
-      <pre>{JSON.stringify(comments, null, 3)}</pre>
+      {screenWidth >= 768 ? <h1>Desktop Content</h1> : <h1>Mobile Content</h1>}
     </div>
   );
 };

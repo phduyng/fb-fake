@@ -1,7 +1,11 @@
 import CreatePost from "@/components/modals/home/CreatePost";
+import UserAvatar from "@/components/shared/UserAvatar";
 import UserAvt from "@/components/shared/UserAvatar";
 import { Separator } from "@/components/shared/ui/separator";
+import { getUserByEmail } from "@/data/user";
 import { currentUser } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,11 +14,13 @@ const HomeCenter2 = async () => {
 
   const emailUser = await user?.email;
 
+  const dataUser = await getUserByEmail(emailUser ?? '')
+
   return (
     <div className="flex h-[122.8px] w-[590px] flex-col items-center rounded-lg bg-background shadow">
       <div className="flex w-full space-x-2 px-4 py-3">
-        <Link href="/profile">
-          <UserAvt />
+        <Link href={`/profile/${dataUser?.id}`}>
+          <UserAvatar />
         </Link>
         <CreatePost emailUser={emailUser || ""} />
       </div>

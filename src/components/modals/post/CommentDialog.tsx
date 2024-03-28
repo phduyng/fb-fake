@@ -2,12 +2,13 @@
 
 import UserAvatar from "@/components/shared/UserAvatar";
 import {
+  Dialog,
+  DialogClose,
   DialogContent,
   DialogPortal,
   DialogTrigger,
 } from "@/components/shared/ui/dialog";
 import { Separator } from "@/components/shared/ui/separator";
-import { Dialog, DialogClose } from "@radix-ui/react-dialog";
 import { MdOutlineClose } from "react-icons/md";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,22 +16,20 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/shared/ui/form";
 import { Input } from "@/components/shared/ui/input";
 import { IoSend } from "react-icons/io5";
-import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
-import { createCommentProps, getComments } from "@/types/type";
+import { createCommentProps } from "@/types/type";
 import Comments from "./_comment/Comments";
 import { Comment } from "@prisma/client";
 import CommentEmoji from "@/components/shared/icons/Comment";
+import { Button } from "@/components/shared/ui/button";
 
 interface CommentDialogProps {
   email: string;
@@ -52,8 +51,6 @@ const CommentDialog: FC<CommentDialogProps> = ({ postId, email }) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     createComment({ postId: postId, email: email, body: values.comment });
   }
 
@@ -77,14 +74,14 @@ const CommentDialog: FC<CommentDialogProps> = ({ postId, email }) => {
     },
   });
 
-  console.log(dataCmts);
-
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
-          <CommentEmoji />
-          <span className="text-[15px] font-semibold">Comment</span>
+        <DialogTrigger aria-controls="radix-:Rn7lttbqkq:" asChild>
+          <div className="flex-center w-full cursor-pointer select-none space-x-2 rounded-sm p-[6px] hover:bg-background-3">
+            <CommentEmoji />
+            <span className="text-[15px] font-semibold">Comment</span>
+          </div>
         </DialogTrigger>
         <DialogPortal>
           <DialogContent className="fixed left-1/2 top-1/2 z-50 h-[650px] w-[700px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg bg-bg-2 shadow-lg">
@@ -127,12 +124,12 @@ const CommentDialog: FC<CommentDialogProps> = ({ postId, email }) => {
                       </FormItem>
                     )}
                   />
-                  <button
+                  <Button
                     className="flex-center h-10 w-10  cursor-pointer rounded-full bg-bg-3 text-text-2 "
                     type="submit"
                   >
                     <IoSend size={20} />
-                  </button>
+                  </Button>
                 </form>
               </Form>
             </div>

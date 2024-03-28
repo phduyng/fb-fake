@@ -8,18 +8,20 @@ generator client {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?  @db.Text
   session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -38,6 +40,8 @@ model User {
   friends               Friend[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
 }
 
 model Post {
@@ -48,6 +52,8 @@ model Post {
   email       String      @unique
   emoilList   EmojiUnit[]
   commentList Comment[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 enum Emoji {
@@ -56,11 +62,13 @@ enum Emoji {
 }
 
 model EmojiUnit {
-  id     String @id @default(cuid())
-  emoji  Emoji
-  email  String @unique
-  post   Post   @relation(fields: [postId], references: [postId], onDelete: Cascade)
-  postId String
+  id        String   @id @default(cuid())
+  emoji     Emoji
+  email     String   @unique
+  post      Post     @relation(fields: [postId], references: [postId], onDelete: Cascade)
+  postId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Comment {
@@ -74,10 +82,12 @@ model Comment {
 }
 
 model Friend {
-  id        String @id @default(cuid())
+  id        String   @id @default(cuid())
   email     String
   emailUser String
-  users     User   @relation(fields: [emailUser], references: [email], onDelete: Cascade)
+  users     User     @relation(fields: [emailUser], references: [email], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {

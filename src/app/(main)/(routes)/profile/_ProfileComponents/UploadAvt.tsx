@@ -31,10 +31,9 @@ import { useMutation } from "@tanstack/react-query";
 import { ZodType } from "zod";
 import UserAvatar from "@/components/shared/UserAvatar";
 import { BiSolidImageAdd } from "react-icons/bi";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Camera from "@/components/shared/icons/Camera";
 
 type post = {
-  caption: string;
   images: File[];
   previewURL: string;
   email: string;
@@ -46,17 +45,15 @@ const fileSchema: ZodType<File> = z.custom<File>(
 );
 
 export const formSchema = z.object({
-  caption: z.string().min(2).max(50),
   images: z.array(fileSchema), // Accept multiple image files
   previewURL: z.string(),
   email: z.string(),
 });
 
-const CreatePost = ({ emailUser }: { emailUser: string }) => {
+const UploadAvt = ({ emailUser }: { emailUser: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      caption: "",
       images: [],
       previewURL: "",
       email: emailUser,
@@ -74,7 +71,7 @@ const CreatePost = ({ emailUser }: { emailUser: string }) => {
 
   const { mutate: createPost } = useMutation({
     mutationFn: (newPost: post) => {
-      return axios.post("/api/create", newPost);
+      return axios.patch("/api/create", newPost);
     },
     onError: (e) => {
       console.error(e);
@@ -85,16 +82,11 @@ const CreatePost = ({ emailUser }: { emailUser: string }) => {
     },
   });
 
-  const user = useCurrentUser();
-
   return (
     <Dialog>
       <DialogTrigger>
-        <div
-          id="main"
-          className="search-lg w-[510px] cursor-pointer text-[17px] font-medium"
-        >
-          What&apos;s on your mind, LoL?
+        <div className="flex-center absolute bottom-0 right-1/2 h-9 w-9 rounded-full bg-bg-3 900:translate-x-[70px] ">
+          <Camera />
         </div>
       </DialogTrigger>
       <DialogPortal>
@@ -107,7 +99,7 @@ const CreatePost = ({ emailUser }: { emailUser: string }) => {
               className="space-y-2"
             >
               <div className="flex-center relative h-[60px] w-full border-b border-bg-3">
-                <span className="text-[18px] font-bold">Create post</span>
+                <span className="text-[18px] font-bold">Upload Avatar</span>
                 <DialogClose>
                   <div className="flex-center absolute bottom-2 right-2 top-2 h-10 w-10 rounded-full bg-bg-3 text-text-2">
                     <MdOutlineClose size={28} />
@@ -115,40 +107,9 @@ const CreatePost = ({ emailUser }: { emailUser: string }) => {
                 </DialogClose>
               </div>
 
-              <div className="flex-start mx-4 space-x-2 overflow-y-auto ">
-                <UserAvatar />
-                <div className="flex flex-col">
-                  <span className="text-[15px] font-semibold text-text-1">
-                    {user?.name}
-                  </span>
-                  <div className="flex-start space-x-1 text-text-2">
-                    <span className="text-[12px] font-semibold ">PUBLIC ·</span>
-                    <Public />
-                  </div>
-                </div>
-              </div>
               {/* ////////////////////////////////////// */}
 
               <div className="h-auto w-full overflow-y-auto px-4  scrollbar-hide">
-                <FormField
-                  control={form.control}
-                  name="caption"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <div className="flex-between w-full pb-6 pt-2">
-                          <Input
-                            className="w-full bg-bg-2"
-                            placeholder="What's on your mind, LoL?"
-                            type="text"
-                            {...field}
-                          />
-                          <Smile />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
                 <div className=" rounded-lg border border-bg-3 p-2">
                   <div className="flex-center h-[185.6px] flex-col rounded-lg bg-bg-3/30">
                     <label htmlFor="img">
@@ -220,4 +181,4 @@ const CreatePost = ({ emailUser }: { emailUser: string }) => {
   );
 };
 
-export default CreatePost;
+export default UploadAvt;

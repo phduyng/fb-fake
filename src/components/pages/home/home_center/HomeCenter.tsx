@@ -53,6 +53,7 @@ const HomeCenter: React.FC<HomeCenterProps> = async ({
               postId={item.postId}
               cap={item.caption}
               image={item.imageUrl}
+              createAt={item?.createdAt}
             />
           </>
         );
